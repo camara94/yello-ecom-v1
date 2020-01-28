@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 
 import java.util.Random;
 
@@ -20,15 +22,20 @@ public class LigthEcomV1Application implements CommandLineRunner {
 	@Autowired
 	private CategoryJPARepository categoryJPARepository;
 
+	@Autowired
+	private RepositoryRestConfiguration repositoryRestConfiguration;
+
 	public static void main(String[] args) {
 		SpringApplication.run(LigthEcomV1Application.class, args);
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
-		categoryJPARepository.save(new Category(null, "Ordinateur", null, null));
-		categoryJPARepository.save(new Category(null, "Imprimante", null, null));
-		categoryJPARepository.save(new Category(null, "Smart phones", null, null));
+		//pour exposer l'ID
+		repositoryRestConfiguration.exposeIdsFor( Product.class, Category.class );
+		categoryJPARepository.save(new Category(null, "Ordinateur", null, "unknown.png",null));
+		categoryJPARepository.save(new Category(null, "Imprimante", null, "unknown.png",null));
+		categoryJPARepository.save(new Category(null, "Smart phones", null, "unknown.png",null));
 
 		categoryJPARepository.findAll().forEach(c -> {
 			for (int i=0; i < 5; i++) {
@@ -39,6 +46,7 @@ public class LigthEcomV1Application implements CommandLineRunner {
 				p.setAvailable( rnd.nextBoolean() );
 				p.setPromotion( rnd.nextBoolean() );
 				p.setSelected( rnd.nextBoolean() );
+				p.setPhotoName("unknown.png");
 				productJPARepository.save(p);
 			}
 		});

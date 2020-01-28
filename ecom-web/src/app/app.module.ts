@@ -7,11 +7,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CatalogueService } from './catalogue.service';
 import { ProductsComponent } from './products/products.component';
+import { ProductSelectedComponent } from './product-selected/product-selected.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductsComponent
+    ProductsComponent,
+    ProductSelectedComponent
   ],
   imports: [
     BrowserModule,

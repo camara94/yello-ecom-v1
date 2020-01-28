@@ -8,6 +8,7 @@
           <div class="card-body" >
             <h4 class="card-title">Prix : {{p.currentPrice |  number:'1.1-2'}} DNT</h4>
             <p class="card-text">{{p.description}}</p>
+            <div *ngIf="p.selected" class="text-danger" >Ce produit est selectionné</div>
             <a href="#" class="btn btn-primary">Voir les détails</a>
           </div>
       </div>
